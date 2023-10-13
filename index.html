@@ -19,7 +19,7 @@
     }
 
     const go = new Go();
-    WebAssembly.instantiateStreaming(fetchWithProgress('main.wasm'), go.importObject).then(result => {
+    WebAssembly.instantiateStreaming(fetchWithProgress(), go.importObject).then(result => {
         go.run(result.instance);
     });
 
@@ -39,8 +39,8 @@
         });
     }
 
-    async function fetchWithProgress(filename) {
-        var response = await fetch(filename);
+    async function fetchWithProgress() {
+        var response = await fetch('main.wasm');
 
         // Note - If you are compressing your .wasm file the Content-Length will be incorrect
         // One workaround is to use a custom http header to manually specify the uncompressed size
