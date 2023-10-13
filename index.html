@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 
+<body>
+<progress class="progress-bar" value="0" max="100" id="progress"></progress>
+</body>
+
+<link rel="stylesheet" href="style.css">
 <script src="wasm_exec.js"></script>
 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 
@@ -12,11 +17,11 @@
     }
 
     const go = new Go();
-    WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then(result => {
+    WebAssembly.instantiateStreaming(fetchWithProgress('main.wasm'), go.importObject).then(result => {
         go.run(result.instance);
     });
 
-    window.addEventListener("load", function() {
+    window.addEventListener("load", function () {
         document.body.focus();
     });
 
@@ -30,5 +35,53 @@
         }).catch((error) => {
             return error.toString()
         });
+    }
+
+    async function fetchWithProgress(filename) {
+        var response = await fetch(filename);
+
+        // Note - If you are compressing your .wasm file the Content-Length will be incorrect
+        // One workaround is to use a custom http header to manually specify the uncompressed size
+        var contentLength = response.headers.get('Content-Length');
+
+        var total = parseInt(contentLength, 10);
+        var loaded = 0;
+
+        progressBar = document.getElementById('progress');
+
+        function progressHandler(bytesLoaded, totalBytes) {
+            progressBar.value = (bytesLoaded / totalBytes) * 100
+        }
+
+        var res = new Response(new ReadableStream({
+            async start(controller) {
+                var reader = response.body.getReader();
+                for (; ;) {
+                    var {done, value} = await reader.read();
+
+                    if (done) {
+                        progressHandler(total, total)
+                        break
+                    }
+
+                    loaded += value.byteLength;
+                    progressHandler(loaded, total)
+                    controller.enqueue(value);
+                }
+                controller.close();
+            },
+        }, {
+            "status": response.status,
+            "statusText": response.statusText
+        }));
+
+        // Make sure to copy the headers!
+        // Wasm is very picky with it's headers and it will fail to compile if they are not
+        // specified correctly.
+        for (var pair of response.headers.entries()) {
+            res.headers.set(pair[0], pair[1]);
+        }
+
+        return res;
     }
 </script>
