@@ -47,6 +47,7 @@
             return error.toString()
         });
     }
+
     function wallPostPopup(msg, attachment) {
         vkBridge.send('VKWebAppShowWallPostBox', {
             message: msg,
@@ -55,6 +56,34 @@
             return data.toString()
         }).catch((error) => {
             return error.toString()
+        });
+    }
+
+    function showBannerAd() {
+        vkBridge.send('VKWebAppShowBannerAd', {
+            banner_location: 'bottom'
+        }).then((data) => {
+            if (data.result) {
+                console.log("ладно", data.result)
+                return data.result.toString();
+            }
+        }).catch((error) => {
+            console.log("прохладно", error);
+            return error.toString();
+        });
+    }
+
+    function hideBannerAd() {
+        vkBridge.send('VKWebAppHideBannerAd', {
+            banner_location: 'bottom'
+        }).then((data) => {
+            if (data.result) {
+                console.log("ладно", data.result)
+                return data.result.toString();
+            }
+        }).catch((error) => {
+            console.log("прохладно", error);
+            return error.toString();
         });
     }
 
