@@ -27,17 +27,6 @@
         };
     }
 
-    const go = new Go();
-    WebAssembly.instantiateStreaming(fetchWithProgress(), go.importObject).then(result => {
-        go.run(result.instance);
-    });
-
-    window.addEventListener("load", function () {
-        document.body.focus();
-    });
-
-    vkBridge.send('VKWebAppInit');
-
     function invitePopup(key) {
         vkBridge.send('VKWebAppShowInviteBox', {
             requestKey: key //  Ключ приглашения
@@ -141,4 +130,16 @@
 
         return res;
     }
+
+    vkBridge.send('VKWebAppInit');
+    showBannerAd();
+
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetchWithProgress(), go.importObject).then(result => {
+        go.run(result.instance);
+    });
+
+    window.addEventListener("load", function () {
+        document.body.focus();
+    });
 </script>
