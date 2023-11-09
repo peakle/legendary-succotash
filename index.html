@@ -30,9 +30,7 @@
     }
 
     function invitePopup(key) {
-        vkBridge.send('VKWebAppShowInviteBox', {
-            requestKey: key //  Ключ приглашения
-        }).then((data) => {
+        vkBridge.send('VKWebAppShowInviteBox', {}).then((data) => {
             console.log("ладно", data.result.toString());
             return data.toString()
         }).catch((error) => {
