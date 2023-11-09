@@ -12,7 +12,8 @@
         <progress id="progress" value="0" max="100"></progress>
     </div>
     <span class="progress-text">Загрузка игры...</span>
-    <span class="progress-text" style="font-size: 0.9em">(Может занять до минуты, так что есть время приготовить чай)</span>
+    <span class="progress-text"
+          style="font-size: 0.9em">(Может занять до минуты, так что есть время приготовить чай)</span>
 </div>
 </body>
 
@@ -88,7 +89,7 @@
         // One workaround is to use a custom http header to manually specify the uncompressed size
         var contentLength = response.headers.get('Content-Length');
 
-        var total = parseInt(contentLength, 10);
+        var total = parseInt(contentLength, 10) * 2;
         var loaded = 0;
         console.log("total:", total);
         let progressBar = document.getElementById('progress');
