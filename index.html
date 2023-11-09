@@ -42,8 +42,10 @@
         vkBridge.send('VKWebAppShowInviteBox', {
             requestKey: key //  Ключ приглашения
         }).then((data) => {
+            console.log("ладно", data.result.toString());
             return data.toString()
         }).catch((error) => {
+            console.log("прохладно", error.toString());
             return error.toString()
         });
     }
@@ -53,8 +55,10 @@
             message: msg,
             attachments: attachment
         }).then((data) => {
+            console.log("ладно", data.result.toString());
             return data.toString()
         }).catch((error) => {
+            console.log("прохладно", error.toString());
             return error.toString()
         });
     }
@@ -64,11 +68,11 @@
             banner_location: 'bottom'
         }).then((data) => {
             if (data.result) {
-                console.log("ладно", data.result)
+                console.log("ладно", data.result.toString());
                 return data.result.toString();
             }
         }).catch((error) => {
-            console.log("прохладно", error);
+            console.log("прохладно", error.toString());
             return error.toString();
         });
     }
@@ -78,11 +82,11 @@
             banner_location: 'bottom'
         }).then((data) => {
             if (data.result) {
-                console.log("ладно", data.result)
+                console.log("ладно", data.result.toString());
                 return data.result.toString();
             }
         }).catch((error) => {
-            console.log("прохладно", error);
+            console.log("прохладно", error.toString());
             return error.toString();
         });
     }
