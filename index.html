@@ -31,8 +31,8 @@
 
     function invitePopup(key) {
         vkBridge.send('VKWebAppShowInviteBox', {}).then((data) => {
-            console.log("ладно", data.toJSON().toString());
-            return data.toJSON().toString()
+            console.log("ладно", data.toString());
+            return data.toString()
         }).catch((error) => {
             console.log("прохладно", error.toString());
             return error.toString()
@@ -44,8 +44,8 @@
             message: msg,
             attachments: attachment
         }).then((data) => {
-            console.log("ладно", data.toJSON().toString());
-            return data.toJSON().toString()
+            console.log("ладно", data.toString());
+            return data.toString()
         }).catch((error) => {
             console.log("прохладно", error.toString());
             return error.toString()
@@ -56,10 +56,8 @@
         vkBridge.send('VKWebAppShowBannerAd', {
             banner_location: 'bottom'
         }).then((data) => {
-            if (data.result) {
-                console.log("ладно", data.toJSON().toString());
-                return data.toJSON().toString();
-            }
+            console.log("ладно", data.toString());
+            return data.toString();
         }).catch((error) => {
             console.log("прохладно", error.toString());
             return error.toString();
@@ -71,8 +69,8 @@
             banner_location: 'bottom'
         }).then((data) => {
             if (data.result) {
-                console.log("ладно", data.toJSON().toString());
-                return data.toJSON().toString();
+                console.log("ладно", data.toString());
+                return data.toString();
             }
         }).catch((error) => {
             console.log("прохладно", error.toString());
