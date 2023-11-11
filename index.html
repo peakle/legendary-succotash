@@ -56,8 +56,10 @@
         vkBridge.send('VKWebAppShowBannerAd', {
             banner_location: 'bottom'
         }).then((data) => {
-            console.log("ладно", data.toString());
-            return data.toString();
+            if (data.result) {
+                console.log("ладно", data.result.toString());
+                return data.result.toString();
+            }
         }).catch((error) => {
             console.log("прохладно", error.toString());
             return error.toString();
