@@ -27,7 +27,7 @@ progress {
     border: 0;
 }
 
-img {
+svg {
     display: block;
     width: 30px; /* Set the desired width */
     height: 30px; /* Set the desired height */
