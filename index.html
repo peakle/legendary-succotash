@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autotanks</title>
+    <title>AutoTanks</title>
 </head>
 
 <body>
@@ -15,6 +15,9 @@
     <span class="progress-text"
           style="font-size: 0.9em">(Может занять до минуты, есть время приготовить чай)</span>
 </div>
+
+<button title="Enter fullscreen" class="fullscreen_btn" onclick="fullscreen()"><img src="enlarge.svg"
+                                                                                    alt="Enter fullscreen"></button>
 </body>
 
 <link rel="stylesheet" href="style.css">
@@ -27,6 +30,16 @@
             const source = await (await resp).arrayBuffer();
             return await WebAssembly.instantiate(source, importObject);
         };
+    }
+
+    function fullscreen() {
+        let elem = document.documentElement;
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+            return
+        }
+
+        elem.requestFullscreen();
     }
 
     function invitePopup(key) {
